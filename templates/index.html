@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link
+         rel="stylesheet"
+         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+         />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <link
+         rel="stylesheet"
+         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+         crossorigin="anonymous"
+         />
+   </head>
+   <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/style.css')}}"
+      />
+   <body onload="myFunction()">
+      <nav class="navbar navbar-dark bg-dark">
+         <span class="navbar-brand h1" style="font-size: 30px; text-align: left"
+            >EDGEN</span
+            >
+      </nav>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-sm-4 col-sm-push-8" >
+               <canvas id="myChart" width="200" height="200"></canvas>
+               <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+            </div>
+            <div class="col-sm-8 col-sm-pull-4">
+              <button onclick="genclick()" id="generate" value="generate" class="btn btn-primary">Generate Paymentsc</button>
+              <button onclick="datclick()" id="dataorders" value="dataorders" class="btn btn-primary">Generate Data Orders</button>
+              <button onclick="cusclick()" id="customers" value="customers" class="btn btn-primary">Generate Customers</button>
+               <div id="demo" style="width: 100%; display: none"></div>
+               <div id="demo1" style="width: 100%; display: none"></div>
+               <div id="demo2" style="width: 100%; display: none"></div>
+
+            </div>
+         </div>
+      </div>
+   </body>
+   <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
+</html>

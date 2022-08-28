@@ -13,6 +13,8 @@ from flask_cors import CORS
 import json
 from werkzeug.utils import secure_filename
 import sys
+import socket   
+
 
 
 app = Flask(__name__, template_folder="./templates")
@@ -38,7 +40,9 @@ def connection(connection_name):
 
 @app.route('/')
 def main():
-    return render_template("index.html")
+    hostname=socket.gethostname() 
+    IPAddr=socket.gethostbyname(hostname)  
+    return render_template("index.html",IPAddr=IPAddr)
 
 
 @app.route('/input_customers', methods=["GET", "POST"])
@@ -62,9 +66,12 @@ def input_customers():
             name1 = fake.name()
             customer_data['f_name'] = name1.split()[0]
             customer_data['l_name'] = name1.split()[1]
+
+
             try:
                 cur.execute("insert into postgres.advance_jaffle_shop.customers values('{}','{}','{}')".format(customer_data['cid'],customer_data['f_name'],customer_data['l_name']))
                 conn.commit()
+ 
                 ds = {
                     'Customer id': customer_data['cid'],
                     'First Name': customer_data['f_name'],
@@ -111,12 +118,13 @@ def input_data_orders():
             try:
                 cur.execute("INSERT into postgres.advance_jaffle_shop.orders(id, user_id, order_date, status, _etl_loaded_at) values('{}','{}','{}','{}','{}')".format(customer_order['id'],customer_order['user_id'],customer_order['order_date'],customer_order['status'],customer_order['_etl_loaded_at']))
                 conn.commit()
+
                 ds = {
                 'id': customer_order['id'],
                 'User Id': customer_order['user_id'],
                 'Order Date': customer_order['order_date'],
                 'status': customer_order['status'],
-                '_etl_loaded_at': customer_order['_etl_loaded_at']
+                '_etl_loaded_at': customer_order['_etl_loaded_at'],
                 }
                 index = index + 1
                 ds = str(ds)

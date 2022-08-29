@@ -3,10 +3,10 @@ kind: ReplicaSet
 metadata:
  name: edgen-replica
 spec:
- replicas: 2
+ replicas: 3
  selector:
    matchLabels:
-     app: edgen-service-connect
+     app: edgen-replica
  template:
   metadata:
    labels:

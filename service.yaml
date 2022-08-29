@@ -1,11 +1,13 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: edgen
+  name: edgen-container-service
+  labels:
+    app: edgen-container-service
 spec:
   type: NodePort
   ports:
     - port: 5000
-      nodePort: 5000
+      nodePort: 30033
   selector:
-    name: edgen
+    app: edgen-service-connect

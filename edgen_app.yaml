@@ -3,7 +3,9 @@ apiVersion: v1
 kind: Pod
 # Metadate section descibe POD Nmae here
 metadata:
-  name: edgen
+  name: edgen-container
+  labels:
+     app: edgen-service-connect
 # Spec  specifies rhe  container id to create.
 spec:
 # Below describes the containers that will run behind  the pod  which includes Container image,name,ports to be used by container. for  now its just 1 container
@@ -12,12 +14,6 @@ spec:
     name: edgen-container
     ports:
     - protocol: TCP
-    #targetPort: 8081
       containerPort: 5000
-  - image: kshounish/edgen:1
-    name: kubia-container
-    ports:
-    - protocol: TCP
-    #targetPort: 8082
-      containerPort: 5000
+ 
 

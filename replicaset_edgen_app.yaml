@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+ name: edgen-replica
+spec:
+ replicas: 2
+ selector:
+   matchLabels:
+     app: edgen-service-connect
+ template:
+  metadata:
+   labels:
+    app: edgen-replica
+  spec:
+    containers:
+    - image: kshounish/edgen:1
+      name: edgen-replica
+      ports:
+        - containerPort: 5000
+          protocol: TCP

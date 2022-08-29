@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+ name: edgen-daeamon
+spec:
+ selector:
+   matchLabels:
+     app: edgen-daemon
+ template:
+  metadata:
+   labels:
+    app: edgen-daemon
+  spec:
+    containers:
+    - image: kshounish/edgen:1
+      name: edgen-daemon
+      ports:
+        - containerPort: 5000
+          protocol: TCP

@@ -13,6 +13,7 @@ spec:
   spec:
     containers:
     - image: kshounish/edgen:1
+      imagePullPolicy: Always
       name: edgen-daemon
       ports:
         - containerPort: 5000

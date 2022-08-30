@@ -1,4 +1,4 @@
- from ubuntu
+ from ubuntu:20.04
  RUN apt-get update
  RUN dpkg --configure -a
  RUN apt-get install -y wget

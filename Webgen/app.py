@@ -133,6 +133,8 @@ def input_data_orders():
 
             except:
                 print("Waiting.....")
+                index = index + 1
+
     except Exception:
         pass 
 
@@ -234,6 +236,7 @@ def generate():
                 return json.dumps({'xaxis': xaxis, 'yaxis': yaxis, 'ds': ds})
             except:
                 print("Waiting.....")
+                index1 = index1 + 1
     except Exception:
         pass 
 

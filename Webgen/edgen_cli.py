@@ -47,16 +47,18 @@ def input_customers():
     customer_data['f_name'] = name1.split()[0]
     customer_data['l_name'] = name1.split()[1]
 
-    cur.execute("insert into dev.advance_jaffle_shop.customers values('{}','{}','{}')".format(customer_data['cid'],customer_data['f_name'],customer_data['l_name']))
-    conn.commit()
-    ds = {
-        'Customer id': customer_data['cid'],
-        'First Name': customer_data['f_name'],
-        'Last Name': customer_data['l_name'],
-    }
-    print(ds)
-    ds = str(ds)
-    return json.dumps(ds)
+    try :
+        cur.execute("insert into dev.advance_jaffle_shop.customers values('{}','{}','{}')".format(customer_data['cid'],customer_data['f_name'],customer_data['l_name']))
+        conn.commit()
+        ds = {
+            'Customer id': customer_data['cid'],
+            'First Name': customer_data['f_name'],
+            'Last Name': customer_data['l_name'],
+            }
+        print(ds)
+        ds = str(ds)
+    except Exception:
+        return json.dumps(ds)
 
 
 def input_data_orders():
@@ -78,20 +80,23 @@ def input_data_orders():
     customer_order['status'] = random.choice(['completed', 'placed','return_pending','returned','shipped'])
     customer_order['_etl_loaded_at'] = datetime.now()
     customer_order['order_date'] = fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime(2019,12,31))
-    cur.execute("INSERT into dev.advance_jaffle_shop.orders(id, user_id, order_date, status, _etl_loaded_at) values('{}','{}','{}','{}','{}')".format(customer_order['id'],customer_order['user_id'],customer_order['order_date'],customer_order['status'],customer_order['_etl_loaded_at']))
-    conn.commit()
+    try:
+        cur.execute("INSERT into dev.advance_jaffle_shop.orders(id, user_id, order_date, status, _etl_loaded_at) values('{}','{}','{}','{}','{}')".format(customer_order['id'],customer_order['user_id'],customer_order['order_date'],customer_order['status'],customer_order['_etl_loaded_at']))
+        conn.commit()
 
-    ds = {
-        'id': customer_order['id'],
-        'User Id': customer_order['user_id'],
-        'Order Date': customer_order['order_date'],
-        'status': customer_order['status'],
-        '_etl_loaded_at': customer_order['_etl_loaded_at']
-    }
-    index = index + 1
-    ds = str(ds)
-    print(ds)
-    return json.dumps(ds)
+        ds = {
+            'id': customer_order['id'],
+            'User Id': customer_order['user_id'],
+            'Order Date': customer_order['order_date'],
+            'status': customer_order['status'],
+            '_etl_loaded_at': customer_order['_etl_loaded_at']
+        }
+        index = index + 1
+        ds = str(ds)
+        print(ds)
+    except Exception:
+        index = index + 1
+        return json.dumps(ds)
 
 
 
@@ -119,21 +124,24 @@ def generate():
     payment_data['amount'] = int(float(fake.pricetag()[1:].replace(',', '')))
     payment_data['_batched_at'] = datetime.now()
     payment_data['created'] = fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime(2019,12,31))
-    cur.execute("INSERT into dev.advance_stripe.payment(id, orderid, paymentmethod, amount, created, _batched_at) values('{}','{}','{}','{}','{}','{}')".format(payment_data['id'],payment_data['orderid'],payment_data['paymentmethod'],payment_data['amount'],payment_data['created'],payment_data['_batched_at']))
-    conn.commit()
+    try :
+        cur.execute("INSERT into dev.advance_stripe.payment(id, orderid, paymentmethod, amount, created, _batched_at) values('{}','{}','{}','{}','{}','{}')".format(payment_data['id'],payment_data['orderid'],payment_data['paymentmethod'],payment_data['amount'],payment_data['created'],payment_data['_batched_at']))
+        conn.commit()
 
-    ds = {
-        'id': payment_data['id'],
-        'orderid': payment_data['orderid'],
-        'paymentmethod': payment_data['paymentmethod'],
-        'amount':  payment_data['amount'],
-        'created': payment_data['created'],
-        '_batched_at': payment_data['_batched_at']
-    }
-    index1 = index1 + 1
-    ds = str(ds)
-    print(ds)
-    return json.dumps({'ds': ds})
+        ds = {
+            'id': payment_data['id'],
+            'orderid': payment_data['orderid'],
+            'paymentmethod': payment_data['paymentmethod'],
+            'amount':  payment_data['amount'],
+            'created': payment_data['created'],
+            '_batched_at': payment_data['_batched_at']
+        }
+        index1 = index1 + 1
+        ds = str(ds)
+        print(ds)
+    except Exception:
+        index1 = index1 + 1
+        return json.dumps({'ds': ds})
 
 
 cur.close()
@@ -144,7 +152,7 @@ def main():
     input_customers()
     generate()
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     try:
         while True:
             globals()[sys.argv[1]]()

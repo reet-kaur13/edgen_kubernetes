@@ -15,11 +15,11 @@ import os
 
 fake = Faker('en-US')
 
-hostname = "www.americaniche.com"
-database = "postgres"
-username = "postgres"
-pwd = "password"
-port_id = 33306
+hostname = ""
+database = ""
+username = ""
+pwd = ""
+port_id = 0
 indexes = 1
 conn = psycopg2.connect(host=hostname, database=database,
                         user=username, password=pwd, port=port_id)

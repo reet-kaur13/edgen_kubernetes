@@ -4,10 +4,9 @@
     "redshift_port": 5439,
     "redshift_user": "admin",
     "redshift_passwd": "Subhash_01",
-
-    "postgres_host_name": "www.americaniche.com",
-    "postgres_db_name": "postgres",
-    "postgres_port": 33306,
+    "postgres_host_name": "172.17.0.1",
+    "postgres_db_name": "web_gen",
+    "postgres_port": 5433,
     "postgres_user": "postgres",
-    "postgres_passwd": "password"
+    "postgres_passwd": "postgres123"
 }

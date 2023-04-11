@@ -57,7 +57,7 @@ def input_customers():
             conn = psycopg2.connect(host=hostname, database=database,user=username, password=pwd, port=port_id)
             cur = conn.cursor()
             cur.execute("ROLLBACK")
-            cur.execute("select count(*) from postgres.advance_jaffle_shop.customers")
+            cur.execute("select count(*) from customers")
             length1 = cur.fetchone()
             print(length1)
             index1 = 1 if length1[0] < 1 else length1[0] + 1
@@ -69,7 +69,7 @@ def input_customers():
 
 
             try:
-                cur.execute("insert into postgres.advance_jaffle_shop.customers values('{}','{}','{}')".format(customer_data['cid'],customer_data['f_name'],customer_data['l_name']))
+                cur.execute("insert into customers values('{}','{}','{}')".format(customer_data['cid'],customer_data['f_name'],customer_data['l_name']))
                 conn.commit()
  
                 ds = {
@@ -99,11 +99,11 @@ def input_data_orders():
             conn = psycopg2.connect(host=hostname, database=database,user=username, password=pwd, port=port_id)
             cur = conn.cursor()
             cur.execute("ROLLBACK")
-            cur.execute("select count(*) from postgres.advance_jaffle_shop.orders")
+            cur.execute("select count(*) from orders")
             
             length = cur.fetchone()
             m = 0
-            cur.execute('select max(user_id) from postgres.advance_jaffle_shop.orders')
+            cur.execute('select max(user_id) from orders')
             m = cur.fetchone()
             print(length)
             customer_order = {}
@@ -116,7 +116,7 @@ def input_data_orders():
             customer_order['_etl_loaded_at'] = datetime.now()
             customer_order['order_date'] = fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime(2019,12,31))
             try:
-                cur.execute("INSERT into postgres.advance_jaffle_shop.orders(id, user_id, order_date, status, _etl_loaded_at) values('{}','{}','{}','{}','{}')".format(customer_order['id'],customer_order['user_id'],customer_order['order_date'],customer_order['status'],customer_order['_etl_loaded_at']))
+                cur.execute("INSERT into orders(id, user_id, order_date, status, _etl_loaded_at) values('{}','{}','{}','{}','{}')".format(customer_order['id'],customer_order['user_id'],customer_order['order_date'],customer_order['status'],customer_order['_etl_loaded_at']))
                 conn.commit()
 
                 ds = {
@@ -158,7 +158,7 @@ def generate_get_data():
 
             product_data = {}
             cur.execute(
-                "select distinct orderid,amount from postgres.advance_jaffle_shop.payment")
+                "select distinct orderid,amount from payment")
             length1 = cur.fetchall()
             print(length1[0][0])
             print(len(length1))
@@ -192,13 +192,13 @@ def generate():
             product_data = {}
 
             product_data = {}
-            cur.execute("select count(*) from postgres.advance_jaffle_shop.payment")
+            cur.execute("select count(*) from payment")
             length1 = cur.fetchone()
             print(length1)
             index1 = 1 if length1[0] < 1 else length1[0] + 1
 
             m = 0
-            cur.execute('select max(orderid) from postgres.advance_jaffle_shop.payment')
+            cur.execute('select max(orderid) from payment')
             m = cur.fetchone()
             # print(m,type(m))
 
@@ -211,7 +211,7 @@ def generate():
             payment_data['_batched_at'] = datetime.now()
             payment_data['created'] = fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime(2019,12,31))
             try:
-                cur.execute("INSERT into postgres.advance_jaffle_shop.payment(id, orderid, paymentmethod, amount, created, _batched_at) values('{}','{}','{}','{}','{}','{}')".format(payment_data['id'],payment_data['orderid'],payment_data['paymentmethod'],payment_data['amount'],payment_data['created'],payment_data['_batched_at']))
+                cur.execute("INSERT into payment(id, orderid, paymentmethod, amount, created, _batched_at) values('{}','{}','{}','{}','{}','{}')".format(payment_data['id'],payment_data['orderid'],payment_data['paymentmethod'],payment_data['amount'],payment_data['created'],payment_data['_batched_at']))
                 conn.commit()
 
                 ds = {
@@ -225,7 +225,7 @@ def generate():
                 index1 = index1 + 1
                 ds = str(ds)
                 print(ds)
-                cur.execute("select distinct orderid,amount from postgres.advance_jaffle_shop.payment")
+                cur.execute("select distinct orderid,amount from payment")
                 length1 = cur.fetchall()
                 xaxis = []
                 yaxis = []

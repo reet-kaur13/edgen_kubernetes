@@ -15,11 +15,11 @@ import os
 
 fake = Faker('en-US')
 
-hostname = ""
-database = ""
-username = ""
-pwd = ""
-port_id = 0
+hostname = "localhost"
+database = "web_gen"
+username = "postgres"
+pwd = "postgres123"
+port_id = 5433
 indexes = 1
 conn = psycopg2.connect(host=hostname, database=database,
                         user=username, password=pwd, port=port_id)
@@ -30,7 +30,7 @@ def input_customers():
     cur = conn.cursor()
     cur.execute("ROLLBACK")
 
-    cur.execute("select count(*) from postgres.advance_jaffle_shop.customers")
+    cur.execute("select count(*) from customers")
     length1 = cur.fetchone()
     print(length1)
     index1 = 1 if length1[0] < 1 else length1[0] + 1
@@ -43,8 +43,9 @@ def input_customers():
     name1 = fake.name()
     customer_data['f_name'] = name1.split()[0]
     customer_data['l_name'] = name1.split()[1]
-    try:
-        cur.execute("insert into postgres.advance_jaffle_shop.customers values('{}','{}','{}')".format(customer_data['cid'],customer_data['f_name'],customer_data['l_name']))
+
+    try :
+        cur.execute("insert into customers values('{}','{}','{}')".format(customer_data['cid'],customer_data['f_name'],customer_data['l_name']))
         conn.commit()
         ds = {
             'Customer id': customer_data['cid'],
@@ -63,11 +64,11 @@ def input_customers():
 def input_data_orders():
     cur = conn.cursor()
     cur.execute("ROLLBACK")
-    cur.execute("select count(*) from postgres.advance_jaffle_shop.orders")
+    cur.execute("select count(*) from orders")
     
     length = cur.fetchone()
     m = 0
-    cur.execute('select max(user_id) from postgres.advance_jaffle_shop.orders')
+    cur.execute('select max(user_id) from orders')
     m = cur.fetchone()
     print(length)
     customer_order = {}
@@ -80,7 +81,7 @@ def input_data_orders():
     customer_order['_etl_loaded_at'] = datetime.now()
     customer_order['order_date'] = fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime(2019,12,31))
     try:
-        cur.execute("INSERT into postgres.advance_jaffle_shop.orders(id, user_id, order_date, status, _etl_loaded_at) values('{}','{}','{}','{}','{}')".format(customer_order['id'],customer_order['user_id'],customer_order['order_date'],customer_order['status'],customer_order['_etl_loaded_at']))
+        cur.execute("INSERT into orders(id, user_id, order_date, status, _etl_loaded_at) values('{}','{}','{}','{}','{}')".format(customer_order['id'],customer_order['user_id'],customer_order['order_date'],customer_order['status'],customer_order['_etl_loaded_at']))
         conn.commit()
         ds = {
         'id': customer_order['id'],
@@ -107,13 +108,13 @@ def generate():
     product_data = {}
 
     product_data = {}
-    cur.execute("select count(*) from postgres.advance_jaffle_shop.payment")
+    cur.execute("select count(*) from payment")
     length1 = cur.fetchone()
     print(length1)
     index1 = 1 if length1[0] < 1 else length1[0] + 1
 
     m = 0
-    cur.execute('select max(orderid) from postgres.advance_jaffle_shop.payment')
+    cur.execute('select max(orderid) from payment')
     m = cur.fetchone()
     # print(m,type(m))
 
@@ -125,8 +126,8 @@ def generate():
     payment_data['amount'] = int(float(fake.pricetag()[1:].replace(',', '')))
     payment_data['_batched_at'] = datetime.now()
     payment_data['created'] = fake.date_between_dates(date_start=datetime(2015,1,1), date_end=datetime(2019,12,31))
-    try:
-        cur.execute("INSERT into postgres.advance_jaffle_shop.payment(id, orderid, paymentmethod, amount, created, _batched_at) values('{}','{}','{}','{}','{}','{}')".format(payment_data['id'],payment_data['orderid'],payment_data['paymentmethod'],payment_data['amount'],payment_data['created'],payment_data['_batched_at']))
+    try :
+        cur.execute("INSERT into payment(id, orderid, paymentmethod, amount, created, _batched_at) values('{}','{}','{}','{}','{}','{}')".format(payment_data['id'],payment_data['orderid'],payment_data['paymentmethod'],payment_data['amount'],payment_data['created'],payment_data['_batched_at']))
         conn.commit()
 
         ds = {

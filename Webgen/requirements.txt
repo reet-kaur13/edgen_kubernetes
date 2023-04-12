@@ -1,0 +1,7 @@
+Faker==18.4.0
+Flask==2.2.3
+flask_cors==3.0.10
+pandas==2.0.0
+psycopg2==2.9.6
+psycopg2_binary==2.9.6
+Werkzeug==2.2.3

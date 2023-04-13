@@ -1,0 +1,3 @@
+CREATE TABLE payment (id serial PRIMARY KEY, orderid integer NOT NULL, paymentmethod VARCHAR(20) NOT NULL, amount integer NOT NULL, _batched_at timestamp without time zone NOT NULL, created DATE NOT NULL);
+CREATE TABLE orders (id serial PRIMARY KEY, user_id integer NOT NULL, status VARCHAR(20) NOT NULL, _etl_loaded_at timestamp without time zone NOT NULL, order_date DATE NOT NULL, order_status VARCHAR(255));
+CREATE TABLE customers (cid serial PRIMARY KEY, f_name VARCHAR(50), l_name VARCHAR(50));

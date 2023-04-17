@@ -13,7 +13,7 @@ then
     git checkout qa
     git merge development qa
     echo "Merge successful, pushing branch now."
-    git push origin qa
+    git push origin development
     echo "Push successful."
     
 else

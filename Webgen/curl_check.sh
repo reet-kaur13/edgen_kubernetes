@@ -1,5 +1,5 @@
 #!/bin/bash
-URL="chrisdgendev.americaniche.com"
+URL="chrisdgenqa.americaniche.com"
 CUSTOMERS="Generate Customers"
 ORDERS="Generate Data Orders"
 PAYMENTS="Generate Paymentsc"
@@ -9,11 +9,11 @@ PAYMENTS_RESULT=$(curl --silent $URL | grep "$PAYMENTS" | cut -f2 -d ">" | cut -
 #if [ "$CUSTOMERS" -eq "$CUSTOMER_RESULT" "$PAYMENTS" -eq "$PAYMENTS_RESULT" && "$ORDERS" -eq "$ORDERS_RESULT" ]
 if [ "$CUSTOMERS" = "$CUSTOMER_RESULT" ] &&  [ "$ORDERS" = "$ORDERS_RESULT" ] && [ "$PAYMENTS" = "$PAYMENTS_RESULT" ]
 then
-    echo " The Customers, Payments and Orders buttons all appear! Merging with QA branch now."
-    git checkout qa
-    git merge development qa
+    echo " The Customers, Payments and Orders buttons all appear! Merging with Performance branch now."
+    git checkout perf
+    git merge qa perf
     echo "Merge successful, pushing branch now."
-    git push origin qa
+    git push origin perf
     echo "Push successful."
     
 else

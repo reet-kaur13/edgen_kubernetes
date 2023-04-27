@@ -14,7 +14,11 @@ then
     git merge development qa
     echo "Merge successful, pushing branch now."
     git push origin qa
+<<<<<<< HEAD
     echo "Push successful."
+=======
+    echo "Push to QA branch successful."
+>>>>>>> development
     
 else
     echo "One of the buttons was not found."

@@ -1,5 +1,5 @@
 #!/bin/bash
-URL="chrisdgendev.americaniche.com"
+URL="chrisdgenqa.americaniche.com"
 CUSTOMERS="Generate Customers"
 ORDERS="Generate Data Orders"
 PAYMENTS="Generate Paymentsc"

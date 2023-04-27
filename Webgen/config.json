@@ -4,9 +4,9 @@
     "redshift_port": 5439,
     "redshift_user": "admin",
     "redshift_passwd": "Subhash_01",
-    "postgres_host_name": "192.168.1.115",
-    "postgres_db_name": "web_gen",
-    "postgres_port": 5433,
-    "postgres_user": "postgres",
-    "postgres_passwd": "postgres"
+    "postgres_host_name": "10.0.0.162",
+    "postgres_db_name": "web_gen_dev",
+    "postgres_port": 5432,
+    "postgres_user": "web_gen",
+    "postgres_passwd": "web_gen123"
 }

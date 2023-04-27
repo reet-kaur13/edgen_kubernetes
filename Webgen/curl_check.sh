@@ -9,16 +9,12 @@ PAYMENTS_RESULT=$(curl --silent $URL | grep "$PAYMENTS" | cut -f2 -d ">" | cut -
 #if [ "$CUSTOMERS" -eq "$CUSTOMER_RESULT" "$PAYMENTS" -eq "$PAYMENTS_RESULT" && "$ORDERS" -eq "$ORDERS_RESULT" ]
 if [ "$CUSTOMERS" = "$CUSTOMER_RESULT" ] &&  [ "$ORDERS" = "$ORDERS_RESULT" ] && [ "$PAYMENTS" = "$PAYMENTS_RESULT" ]
 then
-    echo " The Customers, Payments and Orders buttons all appear! Merging with QA branch now."
-    git checkout qa
-    git merge development qa
-    echo "Merge successful, pushing branch now."
-    git push origin qa
-<<<<<<< HEAD
-    echo "Push successful."
-=======
-    echo "Push to QA branch successful."
->>>>>>> development
+    echo "Pass"
+    #git checkout qa
+    #git merge development qa
+    #echo "Merge successful, pushing branch now."
+    #git push origin qa
+    #echo "Push to QA branch successful."
     
 else
     echo "One of the buttons was not found."
